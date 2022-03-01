@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/react-color-picker/static/css/main.f89dc54f.css",
-    "main.js": "/react-color-picker/static/js/main.965874ab.js",
-    "static/js/787.bc387818.chunk.js": "/react-color-picker/static/js/787.bc387818.chunk.js",
-    "static/media/logo.svg": "/react-color-picker/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/react-color-picker/index.html",
-    "main.f89dc54f.css.map": "/react-color-picker/static/css/main.f89dc54f.css.map",
-    "main.965874ab.js.map": "/react-color-picker/static/js/main.965874ab.js.map",
-    "787.bc387818.chunk.js.map": "/react-color-picker/static/js/787.bc387818.chunk.js.map"
+    "main.css": "/fav-color-picker-react/static/css/main.7bfe74b1.css",
+    "main.js": "/fav-color-picker-react/static/js/main.77e6de92.js",
+    "static/js/787.543078c8.chunk.js": "/fav-color-picker-react/static/js/787.543078c8.chunk.js",
+    "static/media/logo.svg": "/fav-color-picker-react/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/fav-color-picker-react/index.html",
+    "main.7bfe74b1.css.map": "/fav-color-picker-react/static/css/main.7bfe74b1.css.map",
+    "main.77e6de92.js.map": "/fav-color-picker-react/static/js/main.77e6de92.js.map",
+    "787.543078c8.chunk.js.map": "/fav-color-picker-react/static/js/787.543078c8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f89dc54f.css",
-    "static/js/main.965874ab.js"
+    "static/css/main.7bfe74b1.css",
+    "static/js/main.77e6de92.js"
   ]
 }

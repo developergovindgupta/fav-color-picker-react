@@ -61,4 +61,14 @@
             transform: rotate(360deg);
   }
 }
+
+.App table {
+  border: solid 1px black;
+  margin: auto;
+}
+
+.App table td {
+  border: solid 1px black;
+  padding: 10px;
+}
 /*# sourceMappingURL=App.css.map */

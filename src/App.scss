@@ -36,3 +36,14 @@
 		transform: rotate(360deg);
 	}
 }
+
+.App {
+	table {
+		border: solid 1px black;
+		margin: auto;
+		td {
+			border: solid 1px black;
+			padding: 10px;
+		}
+	}
+}

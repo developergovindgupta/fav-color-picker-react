@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ColorConverter, { hsl2hsv, hsv2hsl, colorObject } from 'string-color-converter';
-// import ColorConverter, { hsl2hsv, hsv2hsl, colorObject } from './ColorConverter';
 import './ColorPicker.css';
+export type ColorObject = colorObject;
 type btnPropsType = {
 	color?: string;
 	gradient?: string;
@@ -15,9 +15,10 @@ type colorPaletteType = {
 	onChange?: Function;
 };
 export type colorPickerChangeResult = {
-	color: colorObject;
+	color: ColorObject;
 	type: string;
 };
+
 export const ColorPickerButton = (props: btnPropsType) => {
 	const clickHandler = (e: React.MouseEvent) => {
 		props.onClick && props.onClick(e, props.color);
@@ -27,10 +28,10 @@ export const ColorPickerButton = (props: btnPropsType) => {
 const ColorPicker = (props: colorPaletteType) => {
 	const width = props.width || 300;
 	const height = props.height || 200;
-	const [selectedColor, setSelectedColor] = useState(ColorConverter('red'));
+	const [selectedColor, setSelectedColor] = useState<ColorObject>(ColorConverter(props.color || 'red'));
 	const [SaturationPointer, setSaturationPointer] = useState({ x: 100, y: 0 });
 	const [hueValue, setHueValue] = useState(0);
-	let type = 'change';
+	const [type, setType] = useState('change');
 
 	const computeColor = (x: number, y: number) => {
 		if (x >= 0 && x <= width && y >= 0 && y <= height) {
@@ -40,7 +41,7 @@ const ColorPicker = (props: colorPaletteType) => {
 			let hsl = hsv2hsl(h, s, v);
 			let hsla = `hsla(${hsl.h},${hsl.s}%,${hsl.l}%,${selectedColor.a})`;
 			let color = ColorConverter(hsla);
-			updateSelectedColor(color, type);
+			updateSelectedColor(color);
 			setSaturationPointer({ x: s, y: 100 - v });
 		}
 	};
@@ -48,7 +49,7 @@ const ColorPicker = (props: colorPaletteType) => {
 		if (e.buttons === 1) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mousedown';
+			setType('mousedown');
 			let x = e.nativeEvent.offsetX;
 			let y = e.nativeEvent.offsetY;
 			computeColor(x, y);
@@ -58,7 +59,7 @@ const ColorPicker = (props: colorPaletteType) => {
 		if (e.buttons === 0) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mouseup';
+			setType('mouseup');
 			let x = e.nativeEvent.offsetX;
 			let y = e.nativeEvent.offsetY;
 			computeColor(x, y);
@@ -68,7 +69,7 @@ const ColorPicker = (props: colorPaletteType) => {
 		if (e.buttons === 1) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mousemove';
+			setType('mousemove');
 			let x = e.nativeEvent.offsetX;
 			let y = e.nativeEvent.offsetY;
 			computeColor(x, y);
@@ -88,7 +89,7 @@ const ColorPicker = (props: colorPaletteType) => {
 			}
 			let x = e.touches[0].clientX - offsetLeft;
 			let y = e.touches[0].clientY - offsetTop;
-			type = 'touchstart';
+			setType('touchstart');
 			computeColor(x, y);
 		}
 	};
@@ -106,7 +107,7 @@ const ColorPicker = (props: colorPaletteType) => {
 			}
 			let x = e.touches[0].clientX - offsetLeft;
 			let y = e.touches[0].clientY - offsetTop;
-			type = 'touchmove';
+			setType('touchmove');
 			computeColor(x, y);
 		}
 	};
@@ -119,7 +120,7 @@ const ColorPicker = (props: colorPaletteType) => {
 			return null;
 		}
 	};
-	const updateSelectedColor = (val: object, type: string) => {
+	const updateSelectedColor = (val: object) => {
 		let color = { ...selectedColor, ...val };
 		let rgba = `rgba(${color.r},${color.g},${color.b},${color.a})`;
 		color = ColorConverter(rgba);
@@ -127,10 +128,6 @@ const ColorPicker = (props: colorPaletteType) => {
 		let hsv = hsl2hsv(color.h, color.s, color.l);
 		updateSaturationPointer(hsv.s, hsv.v);
 		setHueValue(color.h);
-
-		if (props.onChange) {
-			props.onChange({ color, type });
-		}
 	};
 	const updateSaturationPointer = (s: number, v: number) => {
 		let x = s;
@@ -147,13 +144,13 @@ const ColorPicker = (props: colorPaletteType) => {
 		}
 		let hsla = `hsla(${hue},${selectedColor.s || 100}%,${selectedColor.l === 100 ? 50 : selectedColor.l || 50}%,${selectedColor.a})`;
 		let color = ColorConverter(hsla);
-		updateSelectedColor(color, type);
+		updateSelectedColor(color);
 	};
 	const handleHueMouseDown = (e: React.MouseEvent) => {
 		if (e.buttons === 1) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mousedown';
+			setType('mousedown');
 			updateHueValue(e.nativeEvent.offsetX);
 		}
 	};
@@ -161,7 +158,7 @@ const ColorPicker = (props: colorPaletteType) => {
 		if (e.buttons === 1) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mousemove';
+			setType('mousemove');
 			updateHueValue(e.nativeEvent.offsetX);
 		}
 	};
@@ -169,7 +166,7 @@ const ColorPicker = (props: colorPaletteType) => {
 		if (e.buttons === 0) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mouseup';
+			setType('mouseup');
 			// updateHueValue(e.nativeEvent.offsetX);
 		}
 	};
@@ -184,7 +181,7 @@ const ColorPicker = (props: colorPaletteType) => {
 				p = target.offsetParent as HTMLDivElement;
 			}
 			let x = e.touches[0].clientX - offsetLeft;
-			type = 'touchstart';
+			setType('touchstart');
 			updateHueValue(x);
 		}
 	};
@@ -199,7 +196,7 @@ const ColorPicker = (props: colorPaletteType) => {
 				p = target.offsetParent as HTMLDivElement;
 			}
 			let x = e.touches[0].clientX - offsetLeft;
-			type = 'touchmove';
+			setType('touchmove');
 			updateHueValue(x);
 		}
 	};
@@ -210,13 +207,13 @@ const ColorPicker = (props: colorPaletteType) => {
 		} else if (alpha > 100) {
 			alpha = 100;
 		}
-		updateSelectedColor({ a: alpha / 100 }, type);
+		updateSelectedColor({ a: alpha / 100 });
 	};
 	const handleAlphaMouseDown = (e: React.MouseEvent) => {
 		if (e.buttons === 1) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mousedown';
+			setType('mousedown');
 			let x = e.nativeEvent.offsetX;
 			updateAlphaValue(x);
 		}
@@ -225,7 +222,7 @@ const ColorPicker = (props: colorPaletteType) => {
 		if (e.buttons === 1) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mousemove';
+			setType('mousemove');
 			let x = e.nativeEvent.offsetX;
 			updateAlphaValue(x);
 		}
@@ -234,7 +231,7 @@ const ColorPicker = (props: colorPaletteType) => {
 		if (e.buttons === 0) {
 			e.stopPropagation();
 			e.preventDefault();
-			type = 'mouseup';
+			setType('mouseup');
 			let x = e.nativeEvent.offsetX;
 			updateAlphaValue(x);
 		}
@@ -250,7 +247,7 @@ const ColorPicker = (props: colorPaletteType) => {
 				p = target.offsetParent as HTMLDivElement;
 			}
 			let x = e.touches[0].clientX - offsetLeft;
-			type = 'touchstart';
+			setType('touchstart');
 			updateAlphaValue(x);
 		}
 	};
@@ -265,23 +262,21 @@ const ColorPicker = (props: colorPaletteType) => {
 				p = target.offsetParent as HTMLDivElement;
 			}
 			let x = e.touches[0].clientX - offsetLeft;
-			type = 'touchmove';
+			setType('touchmove');
 			updateAlphaValue(x);
 		}
 	};
 	const favButtonClickHandler = (e: React.MouseEvent, color: string) => {
 		e.stopPropagation();
 		e.preventDefault();
-		updateSelectedColor(ColorConverter(color), 'favbutton');
+		setType('favbutton');
+		updateSelectedColor(ColorConverter(color));
 	};
-	const [fn_updateSelectedColor] = useState(() => {
-		return updateSelectedColor;
-	});
-
 	useEffect(() => {
-		const propsColor = ColorConverter(props.color || '');
-		fn_updateSelectedColor(propsColor, 'init');
-	}, [props, fn_updateSelectedColor]);
+		if (props.onChange) {
+			props.onChange({ color: selectedColor, type });
+		}
+	}, [props, selectedColor, type]);
 
 	return (
 		<div className='color-picker-color-palette'>
@@ -343,8 +338,9 @@ const ColorPicker = (props: colorPaletteType) => {
 						max='255'
 						value={selectedColor.r}
 						onChange={(e) => {
+							setType('rgbchange');
 							let val = getValidNumber(e, 0, 255);
-							val !== null && updateSelectedColor({ r: val }, 'change');
+							val !== null && updateSelectedColor({ r: val });
 						}}
 					/>
 
@@ -356,8 +352,9 @@ const ColorPicker = (props: colorPaletteType) => {
 						max='255'
 						value={selectedColor.g}
 						onChange={(e) => {
+							setType('rgbchange');
 							let val = getValidNumber(e, 0, 255);
-							val !== null && updateSelectedColor({ g: val }, 'change');
+							val !== null && updateSelectedColor({ g: val });
 						}}
 					/>
 				</div>
@@ -370,8 +367,9 @@ const ColorPicker = (props: colorPaletteType) => {
 						max='255'
 						value={selectedColor.b}
 						onChange={(e) => {
+							setType('rgbchange');
 							let val = getValidNumber(e, 0, 255);
-							val !== null && updateSelectedColor({ b: val }, 'change');
+							val !== null && updateSelectedColor({ b: val });
 						}}
 					/>
 
@@ -383,8 +381,9 @@ const ColorPicker = (props: colorPaletteType) => {
 						max='100'
 						value={Math.round(selectedColor.a * 100)}
 						onChange={(e) => {
+							setType('rgbchange');
 							let val = getValidNumber(e, 0, 100);
-							val !== null && updateSelectedColor({ a: val / 100 }, 'change');
+							val !== null && updateSelectedColor({ a: val / 100 });
 						}}
 					/>
 				</div>
