@@ -1,0 +1,219 @@
+.react-color-picker {
+  display: inline;
+  position: relative;
+}
+
+.color-picker-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  -webkit-box-shadow: 1px 1px 5px #000;
+          box-shadow: 1px 1px 5px #000;
+  background-color: red;
+  margin: 2px;
+  cursor: pointer;
+}
+
+.color-picker-btn:hover {
+  -webkit-box-shadow: 1px 1px 3px #000;
+          box-shadow: 1px 1px 3px #000;
+}
+
+.color-picker-btn:active {
+  -webkit-box-shadow: 0px 0px 2px #000;
+          box-shadow: 0px 0px 2px #000;
+  margin: 3px 1px 1px 3px;
+}
+
+.color-picker-color-palette {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: auto;
+  -webkit-box-shadow: 2px 2px 5px black;
+          box-shadow: 2px 2px 5px black;
+}
+
+.color-picker-color-palette .color-picker-selected-color {
+  margin: auto;
+  padding: 10px;
+  width: 300px;
+  border: solid 1px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  background-color: blue;
+}
+
+.color-picker-color-palette .color-picker-selected-color span {
+  mix-blend-mode: difference;
+  color: white;
+}
+
+.color-picker-color-palette .color-picker-saturation-palette {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  width: 300px;
+  height: 200px;
+  outline: solid 1px rgba(0, 0, 0, 0.5);
+  margin: 5px auto;
+  position: relative;
+  background-color: red;
+  cursor: crosshair;
+}
+
+.color-picker-color-palette .color-picker-saturation-palette::before, .color-picker-color-palette .color-picker-saturation-palette::after {
+  content: '';
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.color-picker-color-palette .color-picker-saturation-palette::before {
+  background: -webkit-gradient(linear, left top, right top, from(white), to(rgba(255, 255, 255, 0)));
+  background: linear-gradient(90deg, white, rgba(255, 255, 255, 0));
+}
+
+.color-picker-color-palette .color-picker-saturation-palette::after {
+  background: -webkit-gradient(linear, left bottom, left top, from(black), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(0deg, black, rgba(0, 0, 0, 0));
+}
+
+.color-picker-color-palette .color-picker-saturation-palette .color-picker-saturation-cursor {
+  width: 14px;
+  height: 14px;
+  border: solid 1px white;
+  outline: solid 1px rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  position: absolute;
+  top: 172px;
+  left: 100px;
+  -webkit-box-shadow: 0px 0px 3px white, inset 0px 0px 2px white;
+          box-shadow: 0px 0px 3px white, inset 0px 0px 2px white;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.color-picker-color-palette .color-picker-hue-slider {
+  width: 300px;
+  height: 30px;
+  outline: solid 1px rgba(0, 0, 0, 0.5);
+  margin: auto;
+  background-image: -webkit-gradient(linear, left top, right top, from(red), color-stop(yellow), color-stop(green), color-stop(cyan), color-stop(blue), color-stop(magenta), to(red));
+  background-image: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta, red);
+  position: relative;
+}
+
+.color-picker-color-palette .color-picker-hue-slider .color-picker-hue-slider-thumb {
+  width: 10px;
+  height: 100%;
+  border: solid 1px white;
+  border-radius: 2px;
+  position: absolute;
+  margin: 0px -5px;
+  left: 0px;
+  -webkit-box-shadow: 0px 0px 3px white, inset 0px 0px 2px white;
+          box-shadow: 0px 0px 3px white, inset 0px 0px 2px white;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.color-picker-color-palette .color-picker-alpha-slider {
+  width: 300px;
+  height: 30px;
+  outline: solid 1px rgba(0, 0, 0, 0.5);
+  margin: 5px auto 0px auto;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVBhXYziMBP4jAWpKQGkwgMqDAdUkDh8GAO+XqMHt5Q7IAAAAAElFTkSuQmCC");
+  background-repeat: repeat;
+  position: relative;
+}
+
+.color-picker-color-palette .color-picker-alpha-slider:before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), to(black));
+  background: linear-gradient(90deg, transparent, black);
+}
+
+.color-picker-color-palette .color-picker-alpha-slider .color-picker-alpha-slider-thumb {
+  width: 10px;
+  height: 100%;
+  border: solid 1px white;
+  border-radius: 2px;
+  position: absolute;
+  margin: 0px -5px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 0px 3px black, inset 0px 0px 2px white;
+          box-shadow: 0px 0px 3px black, inset 0px 0px 2px white;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.color-picker-color-palette .color-picker-rgb-inputs {
+  width: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: auto;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.color-picker-color-palette .color-picker-rgb-inputs .color-picker-rgb-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.color-picker-color-palette .color-picker-rgb-inputs input {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+  width: 25%;
+  padding: 5px;
+  margin: 5px;
+  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+          box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  border: solid 1px rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+}
+
+.color-picker-color-palette .color-picker-favourites {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  padding: 3px;
+  margin: auto;
+}
+/*# sourceMappingURL=ColorPicker.css.map */
