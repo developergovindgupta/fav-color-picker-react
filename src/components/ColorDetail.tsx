@@ -1,12 +1,12 @@
 import React from 'react';
-import { colorObject } from 'string-color-converter';
+import { ColorObject } from './ColorPicker';
 
-const ColorDetail = (props: { color: colorObject | undefined }) => {
+const ColorDetail = (props: { color: ColorObject | undefined }) => {
 	return (
-		<table>
+		<table style={{ width: '400px', maxWidth: 'calc(100vw - 50px)' }}>
 			<thead>
 				<tr>
-					<th>Property</th>
+					<th style={{ width: '80px' }}>Property</th>
 					<th>Description &lt; ColorObject &gt;</th>
 				</tr>
 			</thead>

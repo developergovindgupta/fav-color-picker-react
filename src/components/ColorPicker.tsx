@@ -292,8 +292,8 @@ const ColorPicker = (props: colorPaletteType) => {
 				onTouchStart={handleTouchStart}
 				onTouchMove={handleTouchMove}
 				onTouchEnd={(e) => {
-					e.preventDefault();
 					e.stopPropagation();
+					setType('touchend');
 				}}
 			>
 				<div className='color-picker-saturation-cursor' style={{ left: `calc(${SaturationPointer.x}% - 7px)`, top: `calc(${SaturationPointer.y}% - 7px)` }}></div>
@@ -307,8 +307,8 @@ const ColorPicker = (props: colorPaletteType) => {
 				onTouchStart={handleHueTouchStart}
 				onTouchMove={handleHueTouchMove}
 				onTouchEnd={(e) => {
-					e.preventDefault();
 					e.stopPropagation();
+					setType('touchend');
 				}}
 			>
 				<div className='color-picker-hue-slider-thumb' style={{ left: `${(hueValue / 360) * width}px` }}></div>
@@ -322,8 +322,8 @@ const ColorPicker = (props: colorPaletteType) => {
 				onTouchStart={handleAlphaTouchStart}
 				onTouchMove={handleAlphaTouchMove}
 				onTouchEnd={(e) => {
-					e.preventDefault();
 					e.stopPropagation();
+					setType('touchend');
 				}}
 			>
 				<div className='color-picker-alpha-slider-thumb' style={{ left: `${selectedColor.a * width}px` }}></div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ColorPicker, { colorPickerChangeResult } from './components/ColorPicker';
+import ColorPicker, { colorPickerChangeResult, ColorObject } from './components/ColorPicker';
 import ColorDetail from './components/ColorDetail';
 import { colorObject } from 'string-color-converter';
 
@@ -18,22 +18,20 @@ function App() {
 				</a>
 			</header>
 			<br />
-			<div style={{ display: 'inline-flex', margin: 'auto' }}>
-				<div style={{ padding: '20px' }}>
+			<div style={{ display: 'inline-flex', margin: 'auto', flexWrap: 'wrap' }}>
+				<div style={{ padding: '20px', margin: 'auto' }}>
 					<ColorPicker
 						color='red'
 						width={300}
 						height={150}
 						onChange={(e: colorPickerChangeResult) => {
-							// console.log(e);
-							// document.body.style.backgroundColor = e.color.hsla;
 							setSelectedColor(e.color);
 							setChangeType(e.type);
 						}}
 						favourites={['red', 'yellow', 'green', 'cyan', 'blue', 'magenta', 'pink', 'white', 'silver', 'gray', 'maroon', 'black']}
 					/>
 				</div>
-				<div style={{ padding: '20px' }}>
+				<div style={{ padding: '20px', margin: 'auto' }}>
 					<h2 style={{ margin: 'auto' }}>Event Type:{changeType}</h2>
 					<ColorDetail color={selectedColor} />
 				</div>
