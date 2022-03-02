@@ -81,7 +81,7 @@
         width={300}
         height={150}
         onChange={(e: colorPickerChangeResult) => {
-            document.body.backgroundColor=e.color.rgba;
+            document.body.style.backgroundColor=e.color.rgba;
         }}
         favourites={['red', 'yellow', 'green', 'cyan', 'blue', 'magenta', 'pink', 'white', 'silver', 'gray', 'maroon', 'black']}
     />
