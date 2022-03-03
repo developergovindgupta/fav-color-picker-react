@@ -18,10 +18,10 @@ function App() {
 				</a>
 			</header>
 			<br />
-			<div style={{ display: 'inline-flex', margin: 'auto', flexWrap: 'wrap' }}>
+			<div style={{ display: 'inline-flex', margin: 'auto', flexWrap: 'wrap', backgroundColor: 'white' }}>
 				<div style={{ padding: '20px', margin: 'auto' }}>
 					<ColorPicker
-						color='red'
+						color='white'
 						width={300}
 						height={150}
 						onChange={(e: colorPickerChangeResult) => {
@@ -34,6 +34,14 @@ function App() {
 				<div style={{ padding: '20px', margin: 'auto' }}>
 					<h2 style={{ margin: 'auto' }}>Event Type:{changeType}</h2>
 					<ColorDetail color={selectedColor} />
+				</div>
+				<div style={{ padding: '20px', margin: 'auto' }}>
+					<ColorPicker
+						color={selectedColor?.rgba}
+						onChange={(e: colorPickerChangeResult) => {
+							document.body.style.backgroundColor = e.color.rgba;
+						}}
+					/>
 				</div>
 			</div>
 		</div>

@@ -87,8 +87,8 @@ const ColorPicker = (props: colorPaletteType) => {
 				offsetTop += p.offsetTop;
 				p = target.offsetParent as HTMLDivElement;
 			}
-			let x = e.touches[0].clientX - offsetLeft;
-			let y = e.touches[0].clientY - offsetTop;
+			let x = e.touches[0].pageX - offsetLeft;
+			let y = e.touches[0].pageY - offsetTop;
 			setType('touchstart');
 			computeColor(x, y);
 		}
@@ -105,8 +105,8 @@ const ColorPicker = (props: colorPaletteType) => {
 				offsetTop += p.offsetTop;
 				p = target.offsetParent as HTMLDivElement;
 			}
-			let x = e.touches[0].clientX - offsetLeft;
-			let y = e.touches[0].clientY - offsetTop;
+			let x = e.touches[0].pageX - offsetLeft;
+			let y = e.touches[0].pageY - offsetTop;
 			setType('touchmove');
 			computeColor(x, y);
 		}
@@ -180,7 +180,7 @@ const ColorPicker = (props: colorPaletteType) => {
 				offsetLeft += p.offsetLeft;
 				p = target.offsetParent as HTMLDivElement;
 			}
-			let x = e.touches[0].clientX - offsetLeft;
+			let x = e.touches[0].pageX - offsetLeft;
 			setType('touchstart');
 			updateHueValue(x);
 		}
@@ -195,7 +195,7 @@ const ColorPicker = (props: colorPaletteType) => {
 				offsetLeft += p.offsetLeft;
 				p = target.offsetParent as HTMLDivElement;
 			}
-			let x = e.touches[0].clientX - offsetLeft;
+			let x = e.touches[0].pageX - offsetLeft;
 			setType('touchmove');
 			updateHueValue(x);
 		}
@@ -246,7 +246,7 @@ const ColorPicker = (props: colorPaletteType) => {
 				offsetLeft += p.offsetLeft;
 				p = target.offsetParent as HTMLDivElement;
 			}
-			let x = e.touches[0].clientX - offsetLeft;
+			let x = e.touches[0].pageX - offsetLeft;
 			setType('touchstart');
 			updateAlphaValue(x);
 		}
@@ -261,7 +261,7 @@ const ColorPicker = (props: colorPaletteType) => {
 				offsetLeft += p.offsetLeft;
 				p = target.offsetParent as HTMLDivElement;
 			}
-			let x = e.touches[0].clientX - offsetLeft;
+			let x = e.touches[0].pageX - offsetLeft;
 			setType('touchmove');
 			updateAlphaValue(x);
 		}
@@ -277,6 +277,10 @@ const ColorPicker = (props: colorPaletteType) => {
 			props.onChange({ color: selectedColor, type });
 		}
 	}, [props, selectedColor, type]);
+	useEffect(() => {
+		let color = ColorConverter(props.color || 'red');
+		updateSelectedColor(color);
+	}, [props.color]);
 
 	return (
 		<div className='color-picker-color-palette'>
